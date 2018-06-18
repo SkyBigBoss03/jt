@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+	
+	<!--通过spring管理jedis对象
+		Jedis jedis = new Jedis("192.168.126.151", 6379);
+		
+		constructor-arg 属性介绍
+		index="" 构造参数的  下标
+		name=""  构造参数的  名称
+		ref=""   构造参数的引用    
+		type=""  构造参数的类型 java的类型     
+		value="" 构造参数赋值
+		
+		注意事项:
+			java中不负责维护方法形参变量的名称.如果没有引入源码
+			则形参会变为arg0,arg1.依次新增.
+			这时通过name属性进行构造赋值时必然报错.
+			new User(int arg0,String arg1)
+		所以要求:使用构造赋值时,使用index下标赋值
+		
+		注意事项2:
+			构造方法重载:方法名相同,参数列表不同(参数个数不同,参数类型不同)
+			如果构造方法恰好重载了2个参数的构造,只是 参数类型不同.以下的配置
+			必定报错.
+		总结:使用构造注入时,
+			1.需要注意参数名称是否变化这样的情况,
+			2.注意构造方法的重载问题参数个数和类型是否相同.
+			3.添加type类型时,只写独有的类型即可.
+	  -->
+	<bean id="jedis" class="redis.clients.jedis.Jedis">
+		<!--为构造方法赋值  -->
+		<!-- <constructor-arg name="host" value="${redis.host}"/>
+		<constructor-arg name="port" value="${redis.port}"/> -->
+		<constructor-arg index="0" value="${redis.host}"  type="java.lang.String"/>
+		<constructor-arg index="1" value="${redis.port}"/>
+	</bean>	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>
